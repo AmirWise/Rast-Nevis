@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "راست‌نویس — ویراستار فارسی توییتر",
+  "version": "1.0.0",
+  "description": "تشخیص خودکار توییت‌های فارسی، نشانه‌گذاری غلط‌های املایی و پیشنهاد اصلاح — کاملاً محلی و آفلاین.",
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "راست‌نویس"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://*.twitter.com/*", "*://*.x.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.twitter.com/*", "*://*.x.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+/* راست‌نویس — استایل نشانه‌گذاری روی توییتر */
+
+.pfa-u {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: #f4212e;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color .15s ease;
+}
+.pfa-u:hover { background: rgba(244, 33, 46, .12); }
+
+.pfa-u.pfa-warning { text-decoration-color: #e8a13c; }
+.pfa-u.pfa-warning:hover { background: rgba(232, 161, 60, .12); }
+.pfa-u.pfa-hint { text-decoration-color: #8b98ff; text-decoration-style: dotted; }
+.pfa-u.pfa-hint:hover { background: rgba(139, 152, 255, .12); }
+
+/* نشان روی توییت — inline زیر متن */
+.pfa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(113, 118, 123, .35);
+  background: transparent;
+  color: #71767b;
+  font: 500 12px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+.pfa-badge:hover { background: rgba(29, 155, 240, .08); color: #1d9bf0; }
+.pfa-badge svg { width: 13px; height: 13px; }
+.pfa-badge.pfa-badge-soft { border-color: rgba(113, 118, 123, .25); color: #71767b; }
+
+/* پنل اصلاحات */
+.pfa-panel {
+  direction: rtl;
+  margin: 8px 0 4px;
+  border: 1px solid #2f3336;
+  border-radius: 16px;
+  background: #16181c;
+  padding: 12px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  color: #e7e9ea;
+  animation: pfa-in .18s ease;
+}
+@keyframes pfa-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+.pfa-panel h4 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e7e9ea;
+}
+.pfa-panel h4 svg { width: 14px; height: 14px; color: #71767b; }
+
+.pfa-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 7px 0;
+  border-top: 1px solid rgba(47, 51, 54, .6);
+  font-size: 13.5px;
+}
+.pfa-item .w { color: #f4212e; text-decoration: line-through; text-decoration-color: rgba(244,33,46,.5); }
+.pfa-item .c { color: #e7e9ea; font-weight: 700; }
+.pfa-item .r { color: #71767b; font-size: 11.5px; margin-inline-start: auto; }
+.pfa-item svg { width: 12px; height: 12px; color: #71767b; flex-shrink: 0; }
+
+.pfa-actions { display: flex; gap: 8px; margin-top: 12px; }
+.pfa-btn {
+  flex: 1;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 10px;
+  font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  cursor: pointer;
+  transition: filter .15s ease;
+}
+.pfa-btn:hover { filter: brightness(1.1); }
+.pfa-btn-copy { background: #e7e9ea; color: #0f1419; }
+.pfa-btn-close { background: transparent; color: #71767b; border: 1px solid #536471 !important; flex: 0 0 auto; }
+
+/* تول‌تیپ کلیک روی کلمه */
+.pfa-tip {
+  position: absolute;
+  z-index: 9999;
+  direction: rtl;
+  background: #16181c;
+  border: 1px solid #2f3336;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  font-size: 13px;
+  color: #e7e9ea;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4);
+  animation: pfa-in .15s ease;
+  max-width: 260px;
+}
+.pfa-tip .t-w { color: #f4212e; text-decoration: line-through; }
+.pfa-tip .t-c { color: #e7e9ea; font-weight: 700; }
+.pfa-tip .t-r { display: block; color: #71767b; font-size: 11.5px; margin-top: 4px; }

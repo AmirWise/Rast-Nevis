@@ -1,0 +1,75 @@
+<!doctype html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 300px;
+      background: #0b0e14;
+      color: #e7e9ea;
+      font-family: Vazirmatn, IRANSans, "Segoe UI", Tahoma, sans-serif;
+      padding: 16px;
+    }
+    .head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .head img { width: 38px; height: 38px; border-radius: 10px; }
+    .head h1 { font-size: 16px; font-weight: 800; }
+    .head p { font-size: 11px; color: #71767b; margin-top: 2px; }
+    .row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 12px; background: #16181d; border: 1px solid #2f3336;
+      border-radius: 12px; margin-bottom: 8px; cursor: pointer;
+    }
+    .row span { font-size: 13px; font-weight: 600; }
+    .toggle { position: relative; width: 38px; height: 21px; border-radius: 99px; background: #2f3336; transition: .2s; flex-shrink: 0; }
+    .toggle::after {
+      content: ""; position: absolute; top: 2.5px; right: 3px; width: 16px; height: 16px;
+      border-radius: 50%; background: #71767b; transition: .2s;
+    }
+    input { display: none; }
+    input:checked + .toggle { background: linear-gradient(90deg,#1d9bf0,#8b5cf6); }
+    input:checked + .toggle::after { transform: translateX(-16px); background: #fff; }
+    .stat {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px; border-radius: 12px; margin-top: 10px;
+      background: linear-gradient(135deg, rgba(29,155,240,.14), rgba(139,92,246,.14));
+      border: 1px solid rgba(29,155,240,.3);
+    }
+    .stat b { font-size: 20px; font-weight: 900; background: linear-gradient(90deg,#61b6f7,#b49bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat span { font-size: 11.5px; color: #a9b0b7; max-width: 150px; line-height: 1.5; }
+    .foot { margin-top: 12px; text-align: center; font-size: 10.5px; color: #536366; }
+    .reset { background: none; border: none; color: #1d9bf0; font: inherit; font-size: 10.5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <img src="icons/icon.png" alt="راست‌نویس" />
+    <div>
+      <h1>راست‌نویس</h1>
+      <p>ویراستار خودکار توییت‌های فارسی</p>
+    </div>
+  </div>
+
+  <label class="row">
+    <span>فعال بودن افزونه</span>
+    <input type="checkbox" id="enabled" />
+    <i class="toggle"></i>
+  </label>
+  <label class="row">
+    <span>نمایش پیشنهادهای ظریف</span>
+    <input type="checkbox" id="hints" />
+    <i class="toggle"></i>
+  </label>
+
+  <div class="stat">
+    <b id="count">۰</b>
+    <span>توییتِ دارای غلط که تاکنون نشانه‌گذاری شده است</span>
+  </div>
+
+  <div class="foot">
+    تمام پردازش روی دستگاه شما انجام می‌شود · <button class="reset" id="reset">صفر کردن شمارنده</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
