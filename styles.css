@@ -35,7 +35,7 @@
 .pfa-badge svg { width: 13px; height: 13px; }
 .pfa-badge.pfa-badge-soft { border-color: rgba(113, 118, 123, .25); color: #71767b; }
 
-/* پنل اصلاحات */
+/* پنل اصلاحات توییت‌های خوانده‌شده */
 .pfa-panel {
   direction: rtl;
   margin: 8px 0 4px;
@@ -82,7 +82,7 @@
   padding: 8px 10px;
   font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
   cursor: pointer;
-  transition: filter .15s ease;
+  transition: filter .15s ease, background-color .15s ease;
 }
 .pfa-btn:hover { filter: brightness(1.1); }
 .pfa-btn-copy { background: #e7e9ea; color: #0f1419; }
@@ -107,3 +107,413 @@
 .pfa-tip .t-w { color: #f4212e; text-decoration: line-through; }
 .pfa-tip .t-c { color: #e7e9ea; font-weight: 700; }
 .pfa-tip .t-r { display: block; color: #71767b; font-size: 11.5px; margin-top: 4px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   دکمه و پاپ‌اور بررسی درست‌نویسی کنار دکمه Post توییتر
+═══════════════════════════════════════════════════════════════ */
+
+/* دکمه کنار Post */
+.pfa-post-check-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  padding: 0 14px !important;
+  margin-inline-end: 8px !important;
+  margin-inline-start: 4px !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(29, 155, 240, 0.45) !important;
+  background: rgba(29, 155, 240, 0.08) !important;
+  color: #1d9bf0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  direction: rtl !important;
+  transition: background-color .2s, border-color .2s, transform .1s;
+  user-select: none !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  order: unset !important;
+}
+.pfa-post-check-btn:hover {
+  background: rgba(29, 155, 240, 0.16);
+  border-color: #1d9bf0;
+}
+.pfa-post-check-btn:active {
+  transform: scale(0.97);
+}
+.pfa-post-check-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.pfa-btn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 99px;
+  background: #f4212e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* پاپ‌اور منوی بررسی کنار کامپوزر */
+.pfa-composer-popover {
+  position: absolute;
+  z-index: 999999;
+  direction: rtl;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  animation: pfa-in .15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+/* تم پیش‌فرض تاریک توییتر */
+.pfa-composer-popover.pfa-theme-dark {
+  background: #000000;
+  border: 1px solid #2f3336;
+  color: #e7e9ea;
+}
+/* تم Dim (سرمه‌ای) توییتر */
+.pfa-composer-popover.pfa-theme-dim {
+  background: #15202b;
+  border: 1px solid #38444d;
+  color: #f7f9f9;
+}
+/* تم روشن توییتر */
+.pfa-composer-popover.pfa-theme-light {
+  background: #ffffff;
+  border: 1px solid #cfd9de;
+  color: #0f1419;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.pfa-pop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(113, 118, 123, 0.2);
+}
+.pfa-pop-title {
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pfa-pop-title svg {
+  width: 17px;
+  height: 17px;
+  color: #1d9bf0;
+}
+.pfa-pop-close {
+  background: transparent;
+  border: none;
+  color: #71767b;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+.pfa-pop-close:hover {
+  background: rgba(113, 118, 123, 0.15);
+  color: #e7e9ea;
+}
+.pfa-theme-light .pfa-pop-close:hover {
+  color: #0f1419;
+}
+
+/* وضعیت بدون خطا */
+.pfa-pop-clean {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 186, 124, 0.1);
+  border: 1px solid rgba(0, 186, 124, 0.3);
+  color: #00ba7c;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pfa-pop-clean svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* وضعیت دارای خطا */
+.pfa-pop-summary {
+  font-size: 12px;
+  font-weight: 500;
+  color: #71767b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pfa-badge-pill {
+  background: rgba(244, 33, 46, 0.15);
+  color: #f4212e;
+  border: 1px solid rgba(244, 33, 46, 0.3);
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pfa-pop-list {
+  max-height: 230px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-inline-end: 2px;
+}
+.pfa-pop-list::-webkit-scrollbar { width: 4px; }
+.pfa-pop-list::-webkit-scrollbar-thumb { background: rgba(113, 118, 123, 0.3); border-radius: 4px; }
+
+.pfa-pop-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 9px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: rgba(113, 118, 123, 0.08);
+  border: 1px solid rgba(113, 118, 123, 0.14);
+  transition: background 0.15s ease;
+}
+.pfa-pop-item:hover {
+  background: rgba(113, 118, 123, 0.14);
+}
+.pfa-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.pfa-item-words {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.pfa-pop-item .pfa-w {
+  color: #f4212e;
+  text-decoration: line-through;
+  text-decoration-color: rgba(244, 33, 46, 0.6);
+  font-weight: 500;
+  white-space: normal;
+  word-break: break-word;
+}
+.pfa-pop-item .pfa-arrow {
+  color: #71767b;
+  font-size: 10.5px;
+  flex-shrink: 0;
+}
+.pfa-pop-item .pfa-c {
+  color: #00ba7c;
+  font-weight: 700;
+  white-space: normal;
+  word-break: break-word;
+}
+.pfa-item-reason {
+  color: #71767b;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.pfa-item-btns {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.pfa-btn-item-copy,
+.pfa-btn-ignore {
+  background: transparent;
+  border: 1px solid rgba(113, 118, 123, 0.35);
+  color: #e7e9ea;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+.pfa-theme-light .pfa-btn-item-copy,
+.pfa-theme-light .pfa-btn-ignore {
+  color: #0f1419;
+}
+.pfa-btn-item-copy:hover {
+  border-color: #00ba7c;
+  color: #00ba7c;
+  background: rgba(0, 186, 124, 0.12);
+}
+.pfa-btn-ignore:hover {
+  border-color: #1d9bf0;
+  color: #1d9bf0;
+  background: rgba(29, 155, 240, 0.12);
+}
+
+.pfa-composer-popover svg {
+  width: 15px !important;
+  height: 15px !important;
+  max-width: 15px !important;
+  max-height: 15px !important;
+  flex-shrink: 0;
+}
+
+/* دکمه‌های اقدام در پاپ‌اور */
+.pfa-pop-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.pfa-btn-autofix {
+  flex: 1 1 auto;
+  background: #1d9bf0;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter .15s, background .15s;
+}
+.pfa-btn-autofix:hover {
+  filter: brightness(1.15);
+}
+.pfa-btn-undo {
+  flex: 0 0 auto;
+  background: rgba(244, 33, 46, 0.12);
+  color: #f4212e;
+  border: 1px solid rgba(244, 33, 46, 0.3);
+  border-radius: 9999px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+.pfa-btn-undo:hover {
+  background: rgba(244, 33, 46, 0.22);
+}
+.pfa-btn-copy-comp {
+  flex: 0 0 auto;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(113, 118, 123, 0.4);
+  border-radius: 9999px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+.pfa-btn-copy-comp:hover {
+  background: rgba(113, 118, 123, 0.15);
+}
+
+.pfa-toast-msg {
+  font-size: 11.5px;
+  color: #00ba7c;
+  margin-top: 6px;
+  text-align: center;
+  animation: pfa-in .15s ease;
+}
+
+/* مینی‌توست شناور ظریف در کامپوزر بدون پوشاندن متن */
+.pfa-composer-toast {
+  position: absolute;
+  z-index: 999999;
+  direction: rtl;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Vazirmatn, IRANSans, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  animation: pfa-in .15s ease;
+  white-space: nowrap;
+}
+.pfa-composer-toast.pfa-theme-dark {
+  background: #000000;
+  border: 1px solid rgba(0, 186, 124, 0.4);
+  color: #e7e9ea;
+}
+.pfa-composer-toast.pfa-theme-dim {
+  background: #15202b;
+  border: 1px solid rgba(0, 186, 124, 0.4);
+  color: #f7f9f9;
+}
+.pfa-composer-toast.pfa-theme-light {
+  background: #ffffff;
+  border: 1px solid rgba(0, 186, 124, 0.4);
+  color: #0f1419;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.pfa-toast-undo {
+  background: rgba(244, 33, 46, 0.12);
+  color: #f4212e;
+  border: 1px solid rgba(244, 33, 46, 0.35);
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 3px 9px;
+  cursor: pointer;
+  transition: all .15s;
+  line-height: 1.3;
+}
+.pfa-toast-undo:hover {
+  background: rgba(244, 33, 46, 0.22);
+}
+.pfa-toast-close {
+  background: transparent;
+  border: none;
+  color: #71767b;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+.pfa-toast-close:hover {
+  color: #e7e9ea;
+}
