@@ -352,7 +352,7 @@
       .replace(/\r?\n$/, '');
   }
 
-  // جایگزینی ایمن متن در ادیتور توییتر (همگام با React State و Draft.js/Lexical)
+  // جایگزینی ایمن و کامل متن در ادیتور توییتر (همگام با React State و Draft.js/Lexical)
   function replaceEditorText(editor, newText) {
     if (!editor) return false;
 
@@ -364,62 +364,55 @@
 
     target.focus();
 
-    // گام ۱: انتخاب تمام محتوا با دستور مرورگر
+    // گام ۱: انتخاب کامل تمام محتوای ادیتور
+    try {
+      const range = document.createRange();
+      range.selectNodeContents(target);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch (e) {}
+
     try {
       document.execCommand('selectAll', false, null);
     } catch (e) {}
 
-    // گام ۲: آماده‌سازی داده انتقال برای رویداد Paste
-    const dt = new DataTransfer();
-    dt.setData('text/plain', newText);
-    dt.setData('text/html', `<span>${newText}</span>`);
-
-    // گام ۳: ارسال رویداد قبل از درج (beforeinput - روش استاندارد Lexical و Draft.js مدرن)
+    // گام ۲: اطلاع‌رسانی به Draft.js / React درباره تغییر انتخاب به کل متن
     try {
-      const beforeEv = new InputEvent('beforeinput', {
-        bubbles: true,
-        cancelable: true,
-        inputType: 'insertFromPaste',
-        dataTransfer: dt,
-      });
-      target.dispatchEvent(beforeEv);
+      document.dispatchEvent(new Event('selectionchange'));
     } catch (e) {}
 
-    // گام ۴: ارسال رویداد Paste که هسته Draft.js و Lexical را به‌روزرسانی می‌کند
+    // گام ۳: جایگزینی مستقیم متن با دستور مرورگر (این دستور به صورت نیتیو دامنه انتخاب‌شده را پاک و متن جدید را می‌نشاند)
+    let success = false;
     try {
-      const pasteEv = new ClipboardEvent('paste', {
-        bubbles: true,
-        cancelable: true,
-        clipboardData: dt,
-        dataType: 'text/plain',
-        data: newText,
-      });
-      target.dispatchEvent(pasteEv);
+      success = document.execCommand('insertText', false, newText);
     } catch (e) {}
 
-    // گام ۵: درج مستقیم با دستور مرورگر
+    // گام ۴: اگر دستور مرورگر موفق نبود، به عنوان پشتیبان از رویداد Paste استفاده شود
+    if (!success) {
+      try {
+        const dt = new DataTransfer();
+        dt.setData('text/plain', newText);
+        const pasteEv = new ClipboardEvent('paste', {
+          bubbles: true,
+          cancelable: true,
+          clipboardData: dt,
+        });
+        target.dispatchEvent(pasteEv);
+      } catch (e) {}
+    }
+
+    // گام ۵: اطلاع‌رسانی تغییر مکان‌نما به انتهای متن جدید جهت فعال ماندن آنی Backspace و کلیدهای ویرایشی
     try {
-      document.execCommand('insertText', false, newText);
+      document.dispatchEvent(new Event('selectionchange'));
     } catch (e) {}
 
-    // گام ۶: رویدادهای input و change برای همگام‌سازی بی‌درنگ React State
+    // گام ۶: کپی همزمان در کلیپ‌بورد برای اطمینان
     try {
-      target.dispatchEvent(new InputEvent('input', {
-        bubbles: true,
-        cancelable: true,
-        inputType: 'insertFromPaste',
-        data: newText,
-      }));
-      target.dispatchEvent(new Event('input', { bubbles: true }));
-      target.dispatchEvent(new Event('change', { bubbles: true }));
+      navigator.clipboard.writeText(newText).catch(() => {});
     } catch (e) {}
 
-    // گام ۷: کپی همزمان در کلیپ‌بورد برای اطمینان
-    try {
-      navigator.clipboard.writeText(newText);
-    } catch (e) {}
-
-    // بازگرداندن فوکوس به ادیتور تا کیبورد همواره فعال بماند
+    // گام ۷: فوکوس مجدد روی ادیتور
     try {
       target.focus();
     } catch (e) {}

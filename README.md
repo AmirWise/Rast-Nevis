@@ -86,7 +86,7 @@
 
 1. پوشه‌ی افزونه را دانلود یا کلون کنید:
    ```bash
-   git clone https://github.com/your-username/rastnevis.git
+   git clone https://github.com/AmirWise/Rast-Nevis.git
    ```
 2. مرورگر خود را باز کرده و به بخش افزونه‌ها بروید:
    - در کروم و بریو: `chrome://extensions`
